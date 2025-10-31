@@ -1,33 +1,23 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
+import { useEffect, useMemo } from 'react'
 import './App.css'
+import { BaseChart } from './BaseChart'
+import { useStatistics } from './useStatistics'
+import { Chart } from './Chart'
 
 function App() {
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    window.electron.subscribeStatistics(stats => console.log(stats));
-  }, [])
+  const statistics = useStatistics(10)
+  const cpuUsages = useMemo(
+    () => statistics.map(stat => stat.cpuUsage),
+    [statistics]
+  )
 
   return (
     <>
-      <div>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="App" style={{ height: '500px', width: '100%' }}>
+        <div style={{ height: '100%', width: '300px' }}>
+          <Chart data={cpuUsages} />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
