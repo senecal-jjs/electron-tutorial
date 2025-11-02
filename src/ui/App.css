@@ -1,3 +1,21 @@
+header {
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  background-color: #181818;
+  -webkit-app-region: drag;
+}
+
+header button {
+  all: unset;
+  border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
+  margin: 0.25rem;
+  -webkit-app-region: no-drag;
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
